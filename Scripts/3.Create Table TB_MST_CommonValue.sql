@@ -1,6 +1,6 @@
 -- Create Table
 
-Create Table TB_MST_AccountLedger
+Create Table TB_MST_CommonValue
 (
 [id] int identity not null primary key,
 [Action] char(1) not null,
@@ -12,11 +12,7 @@ Create Table TB_MST_AccountLedger
 [FK_SystemID] int foreign key references [TB_CMN_SysIdnetifier]([id]) not null, 
 [Code] varchar(50) not null,
 [Name] nvarchar(300) not null,
-[SecondName] nvarchar(300) null,
-[Description] nvarchar(300) null,
-[FK_GroupID] int foreign key references [TB_MST_AccountGroup]([id]) not null,
-[FK_CurrencyID] int foreign key references [TB_MST_Currency]([id]) null,
-[ExRate] [Decimal](24,8) null,
+[FK_TypeID] int foreign key references [TB_MST_CommonType]([id]) not null, 
 [Status] bit not null,
 [BuiltIn] bit not null
 )
@@ -25,13 +21,13 @@ go
 
 -- Create Constraint
 
-ALTER TABLE [dbo].[TB_MST_AccountLedger] ADD  CONSTRAINT [UC_MST_AccountLedger_Code] UNIQUE NONCLUSTERED 
+ALTER TABLE [dbo].[TB_MST_CommonValue] ADD  CONSTRAINT [UC_MST_CommonValue_Code] UNIQUE NONCLUSTERED 
 (
 	[Code] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[TB_MST_AccountLedger] ADD  CONSTRAINT [UC_MST_AccountLedger_Name] UNIQUE NONCLUSTERED 
+ALTER TABLE [dbo].[TB_MST_CommonValue] ADD  CONSTRAINT [UC_MST_CommonValue_Name] UNIQUE NONCLUSTERED 
 (
 	[Name] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
